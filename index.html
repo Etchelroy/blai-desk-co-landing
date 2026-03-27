@@ -1142,3 +1142,320 @@
 <section id="testimonial">
   <div class="fade-up">
     <blockquote class="testimonial
+# filename: index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grainwork — Handcrafted Desks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">Grainwork</a>
+    <ul class="nav-links">
+      <li><a href="#features">Craft</a></li>
+      <li><a href="#products">Collection</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Shop Now</button>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Craft</a>
+    <a href="#products">Collection</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="mobile-cta">Shop Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-overlay"></div>
+  <img src="https://picsum.photos/seed/wooddesk/1600/900" alt="Handcrafted desk" class="hero-bg">
+  <div class="hero-content">
+    <span class="hero-eyebrow">Handcrafted in the Pacific Northwest</span>
+    <h1 class="hero-headline">Where Every<br>Grain Tells<br>a Story</h1>
+    <p class="hero-sub">Premium solid-wood desks built for the way you work — and the way you live.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">Explore Collection</a>
+      <a href="#about" class="btn btn-ghost">Our Craft</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <p class="section-label">Why Grainwork</p>
+    <h2 class="section-title">Built Different. Built to Last.</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M6 38V16l18-8 18 8v22H6z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 38V26h16v12" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Solid Hardwood</h3>
+        <p>Every top is milled from sustainably sourced walnut, white oak, or maple — no veneers, no shortcuts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2.5"/><path d="M24 14v10l6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Built for Decades</h3>
+        <p>Mortise-and-tenon joinery, hand-finished edges, and hardware rated for 50+ years of daily use.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M10 36l8-8 6 6 8-10 6 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="10" width="36" height="28" rx="2" stroke="currentColor" stroke-width="2.5"/></svg>
+        </div>
+        <h3>Fully Customizable</h3>
+        <p>Choose your species, finish, leg style, and dimensions. Every desk ships in 4–6 weeks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 6l4 12h12l-10 7 4 12-10-7-10 7 4-12L8 18h12z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Lifetime Warranty</h3>
+        <p>We stand behind every joint. If anything fails due to craftsmanship, we fix or replace it — always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="container">
+    <p class="section-label">Our Collection</p>
+    <h2 class="section-title">Find Your Workspace</h2>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://picsum.photos/seed/walnutdesk/600/420" alt="The Walnut Studio">
+          <span class="product-badge">Bestseller</span>
+        </div>
+        <div class="product-info">
+          <div class="product-meta">
+            <span class="product-material">Black Walnut</span>
+            <span class="product-price">From $1,890</span>
+          </div>
+          <h3>The Studio</h3>
+          <p>A broad 72" top with integrated cable management and a hand-rubbed oil finish that deepens with age.</p>
+          <a href="#contact" class="btn btn-outline">Configure Yours</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://picsum.photos/seed/oakdesk/600/420" alt="The Oak Compact">
+        </div>
+        <div class="product-info">
+          <div class="product-meta">
+            <span class="product-material">White Oak</span>
+            <span class="product-price">From $1,290</span>
+          </div>
+          <h3>The Compact</h3>
+          <p>Space-conscious at 48" but never short on character. Perfect for a home office nook or apartment setup.</p>
+          <a href="#contact" class="btn btn-outline">Configure Yours</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://picsum.photos/seed/maplecorner/600/420" alt="The Corner Maple">
+          <span class="product-badge product-badge--new">New</span>
+        </div>
+        <div class="product-info">
+          <div class="product-meta">
+            <span class="product-material">Hard Maple</span>
+            <span class="product-price">From $2,390</span>
+          </div>
+          <h3>The Corner</h3>
+          <p>L-shaped command center with a live-edge waterfall detail. Our most immersive work surface yet.</p>
+          <a href="#contact" class="btn btn-outline">Configure Yours</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / CRAFTSMANSHIP -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-image">
+      <img src="https://picsum.photos/seed/woodworkshop/800/600" alt="Craftsman at work">
+      <div class="about-stat-box">
+        <strong>2,400+</strong>
+        <span>Desks crafted since 2014</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2>Slow Craft in a Fast World</h2>
+      <p class="about-lead">We started Grainwork in a 400 sq ft garage with one table saw and the belief that furniture should outlive its owner.</p>
+      <p>Every piece passes through the hands of a single craftsperson from rough lumber to final finish. We don't run assembly lines. We don't rush. We mill, plane, fit, and finish the way it's been done for generations — because that's the only way to get it right.</p>
+      <ul class="about-list">
+        <li>
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          FSC-certified lumber from Oregon & Washington forests
+        </li>
+        <li>
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Water-based, VOC-free finishes on every surface
+        </li>
+        <li>
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Carbon-offset shipping on all domestic orders
+        </li>
+        <li>
+          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          White-glove in-home delivery & setup included
+        </li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Start Your Order</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <p class="section-label">What People Say</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"I've had my Studio desk for three years. It's more beautiful now than when it arrived. Worth every penny."</p>
+        <div class="testimonial-author">
+          <img src="https://picsum.photos/seed/person1/48/48" alt="">
+          <div><strong>Sarah M.</strong><span>Product Designer, Seattle</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"The customization process was seamless. They matched a live-edge cut to my exact dimensions. Unreal quality."</p>
+        <div class="testimonial-author">
+          <img src="https://picsum.photos/seed/person2/48/48" alt="">
+          <div><strong>James T.</strong><span>Architect, Portland</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"My Corner desk transformed my home office. Clients comment on it every video call. It's a conversation piece."</p>
+        <div class="testimonial-author">
+          <img src="https://picsum.photos/seed/person3/48/48" alt="">
+          <div><strong>Elena R.</strong><span>Founder, San Francisco</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / NEWSLETTER -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <p class="section-label">Get in Touch</p>
+      <h2>Let's Build Something Beautiful</h2>
+      <p>Ready to configure your desk, or just have questions? Fill out the form and our team will respond within one business day.</p>
+      <div class="contact-details">
+        <div><span>📍</span> Portland, OR 97201</div>
+        <div><span>✉️</span> hello@grainwork.co</div>
+        <div><span>📞</span> (503) 421-7800</div>
+      </div>
+      <div class="newsletter-block">
+        <p><strong>Join our list</strong> — new collections, wood stories, and studio updates.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleContact(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="jane@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Interested In</label>
+        <select>
+          <option value="">Select a collection</option>
+          <option>The Studio — Walnut</option>
+          <option>The Compact — White Oak</option>
+          <option>The Corner — Hard Maple</option>
+          <option>Custom Commission</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="4" placeholder="Tell us about your space, dimensions, and vision..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+      <p class="form-note">We typically respond within 24 hours.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">Grainwork</a>
+      <p>Handcrafted desks built to last a lifetime, made in Portland, Oregon.</p>
+    </div>
+    <div class="footer-links">
+      <div>
+        <strong>Shop</strong>
+        <a href="#">The Studio</a>
+        <a href="#">The Compact</a>
+        <a href="#">The Corner</a>
+        <a href="#">Custom Orders</a>
+      </div>
+      <div>
+        <strong>Company</strong>
+        <a href="#">About Us</a>
+        <a href="#">Craftsmanship</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Press</a>
+      </div>
+      <div>
+        <strong>Support</strong>
+        <a href="#">FAQ</a>
+        <a href="#">Shipping & Delivery</a>
+        <a href="#">Warranty</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Grainwork. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
