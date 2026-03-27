@@ -1,1461 +1,696 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grainwork — Handcrafted Desks</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grainwork — Handcrafted Desks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  :root {
-    --brown-deep:    #2C1A0E;
-    --brown-mid:     #5C3317;
-    --brown-warm:    #8B5E3C;
-    --brown-light:   #C49A6C;
-    --brown-pale:    #E8D5B7;
-    --cream:         #F7F0E6;
-    --white:         #FDFAF6;
-    --text-dark:     #1E1208;
-    --text-mid:      #4A2E18;
-    --text-light:    #8B6E52;
-    --accent:        #A0522D;
-  }
+        :root {
+            --brown-dark: #3e2723;
+            --brown-mid: #5d4037;
+            --brown-light: #8d6e63;
+            --wood-tone: #a1887f;
+            --cream: #f5ede3;
+            --white: #ffffff;
+            --accent: #c9996f;
+            --text-dark: #2c2c2c;
+        }
 
-  html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--white);
-    color: var(--text-dark);
-    overflow-x: hidden;
-  }
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(141, 110, 99, 0.1);
+        }
 
-  /* ─── NAVBAR ─── */
-  #navbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 60px;
-    z-index: 1000;
-    transition: background 0.4s ease, box-shadow 0.4s ease;
-  }
-  #navbar.scrolled {
-    background: var(--brown-deep);
-    box-shadow: 0 2px 24px rgba(0,0,0,0.3);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--brown-light); }
-  .nav-links {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-  }
-  .nav-links a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--brown-light); }
-  .nav-cta {
-    background: var(--brown-light);
-    color: var(--brown-deep) !important;
-    padding: 10px 24px;
-    border-radius: 2px;
-    font-weight: 600 !important;
-    transition: background 0.2s, transform 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--brown-pale) !important; transform: translateY(-1px); }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
-  .hamburger span {
-    display: block;
-    width: 26px;
-    height: 2px;
-    background: var(--white);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            letter-spacing: 2px;
+        }
 
-  /* ─── HERO ─── */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 60fr 40fr;
-    overflow: hidden;
-    position: relative;
-    background: var(--brown-deep);
-  }
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 80px 80px 80px;
-    position: relative;
-    z-index: 2;
-  }
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brown-light);
-    margin-bottom: 28px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--brown-light);
-  }
-  .hero-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 5.5vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 28px;
-  }
-  .hero-headline em {
-    font-style: italic;
-    color: var(--brown-light);
-  }
-  .hero-sub {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: rgba(255,255,255,0.65);
-    max-width: 480px;
-    margin-bottom: 52px;
-    font-weight: 300;
-  }
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    background: var(--brown-light);
-    color: var(--brown-deep);
-    padding: 16px 40px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
-    display: inline-block;
-  }
-  .btn-primary:hover {
-    background: var(--brown-pale);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  }
-  .btn-ghost {
-    color: var(--white);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: gap 0.2s, color 0.2s;
-  }
-  .btn-ghost:hover { color: var(--brown-light); gap: 14px; }
-  .btn-ghost::after { content: '→'; font-size: 1rem; }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
 
-  .hero-stats {
-    display: flex;
-    gap: 48px;
-    margin-top: 64px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .stat-item {}
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--brown-light);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
 
-  .hero-right {
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.8) saturate(0.9);
-  }
-  .hero-overlap-card {
-    position: absolute;
-    bottom: 60px;
-    left: -48px;
-    background: var(--white);
-    padding: 24px 28px;
-    border-radius: 4px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    width: 220px;
-    z-index: 3;
-  }
-  .overlap-badge {
-    display: inline-block;
-    background: var(--brown-pale);
-    color: var(--brown-mid);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-  }
-  .overlap-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--brown-deep);
-    margin-bottom: 4px;
-  }
-  .overlap-sub {
-    font-size: 0.75rem;
-    color: var(--text-light);
-  }
-  .hero-wood-texture {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      93deg,
-      transparent 0px,
-      transparent 18px,
-      rgba(255,255,255,0.018) 18px,
-      rgba(255,255,255,0.018) 19px
-    );
-    pointer-events: none;
-  }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
 
-  /* ─── FEATURES ─── */
-  #features {
-    background: var(--cream);
-    padding: 120px 60px;
-    position: relative;
-    overflow: hidden;
-  }
-  #features::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--brown-mid), var(--brown-light), var(--brown-pale));
-  }
-  .section-header {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 72px;
-  }
-  .section-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--brown-warm);
-    margin-bottom: 18px;
-  }
-  .section-eyebrow::before, .section-eyebrow::after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 1px;
-    background: var(--brown-warm);
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 700;
-    color: var(--brown-deep);
-    line-height: 1.2;
-    margin-bottom: 18px;
-  }
-  .section-desc {
-    font-size: 1rem;
-    line-height: 1.75;
-    color: var(--text-light);
-    font-weight: 300;
-  }
+        nav a:hover::after {
+            width: 100%;
+        }
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .feature-card {
-    background: var(--white);
-    padding: 48px 36px;
-    border-radius: 4px;
-    border-bottom: 3px solid transparent;
-    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(196,154,108,0.04), transparent);
-    pointer-events: none;
-  }
-  .feature-card:hover {
-    border-color: var(--brown-light);
-    transform: translateY(-6px);
-    box-shadow: 0 16px 48px rgba(44,26,14,0.12);
-  }
-  .feature-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--brown-pale);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 28px;
-    font-size: 1.5rem;
-  }
-  .feature-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--brown-deep);
-    margin-bottom: 14px;
-  }
-  .feature-text {
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: var(--text-light);
-    font-weight: 300;
-  }
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, #efe8e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-  /* ─── PRODUCTS ─── */
-  #products {
-    background: var(--white);
-    padding: 120px 0;
-  }
-  #products .section-header {
-    padding: 0 60px;
-  }
-  .product-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 560px;
-    margin-bottom: 2px;
-  }
-  .product-row.reverse { direction: rtl; }
-  .product-row.reverse > * { direction: ltr; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(193, 153, 111, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
 
-  .product-image-wrap {
-    position: relative;
-    overflow: hidden;
-  }
-  .product-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s ease;
-  }
-  .product-image-wrap:hover img { transform: scale(1.04); }
-  .product-image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(44,26,14,0.15), transparent);
-    pointer-events: none;
-  }
-  .product-price-badge {
-    position: absolute;
-    bottom: 28px;
-    right: 28px;
-    background: var(--brown-deep);
-    color: var(--brown-light);
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 12px 20px;
-    border-radius: 2px;
-  }
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
 
-  .product-content {
-    background: var(--cream);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 72px;
-  }
-  .product-category {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--brown-warm);
-    margin-bottom: 20px;
-  }
-  .product-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 700;
-    color: var(--brown-deep);
-    line-height: 1.15;
-    margin-bottom: 20px;
-  }
-  .product-desc {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--text-light);
-    font-weight: 300;
-    margin-bottom: 36px;
-    max-width: 380px;
-  }
-  .product-specs {
-    display: flex;
-    gap: 32px;
-    margin-bottom: 40px;
-  }
-  .spec-item {}
-  .spec-val {
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--brown-mid);
-    margin-bottom: 2px;
-  }
-  .spec-key {
-    font-size: 0.72rem;
-    color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .btn-outline {
-    display: inline-block;
-    border: 1.5px solid var(--brown-mid);
-    color: var(--brown-mid);
-    padding: 14px 36px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.25s, color 0.25s, transform 0.25s;
-    align-self: flex-start;
-  }
-  .btn-outline:hover {
-    background: var(--brown-mid);
-    color: var(--white);
-    transform: translateY(-2px);
-  }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--brown-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
 
-  /* ─── CRAFTSMANSHIP / ABOUT ─── */
-  #about {
-    background: var(--brown-deep);
-    padding: 120px 60px;
-    position: relative;
-    overflow: hidden;
-  }
-  #about::after {
-    content: 'GRAINWORK';
-    position: absolute;
-    right: -20px;
-    bottom: -40px;
-    font-family: 'Playfair Display', serif;
-    font-size: 14rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.025);
-    pointer-events: none;
-    white-space: nowrap;
-    line-height: 1;
-  }
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--brown-mid);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
 
-  .about-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .about-left {}
-  .about-left .section-eyebrow { color: var(--brown-light); }
-  .about-left .section-eyebrow::before, .about-left .section-eyebrow::after { background: var(--brown-light); }
-  .about-left .section-title { color: var(--white); }
-  .about-text {
-    font-size: 0.95rem;
-    line-height: 1.85;
-    color: rgba(255,255,255,0.6);
-    font-weight: 300;
-    margin-bottom: 20px;
-  }
-  .about-text strong { color: var(--brown-light); font-weight: 500; }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 100%);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.2);
+        }
 
-  .material-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 36px;
-  }
-  .pill {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.75);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .pill:hover {
-    background: rgba(196,154,108,0.2);
-    border-color: var(--brown-light);
-    color: var(--brown-light);
-  }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(62, 39, 35, 0.3);
+        }
 
-  .about-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .about-img-wrap {
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-  }
-  .about-img-wrap:first-child {
-    grid-column: 1 / -1;
-    height: 260px;
-  }
-  .about-img-wrap:not(:first-child) { height: 180px; }
-  .about-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.75) saturate(0.8);
-    transition: transform 0.5s ease, filter 0.5s ease;
-  }
-  .about-img-wrap:hover img {
-    transform: scale(1.05);
-    filter: brightness(0.85) saturate(0.9);
-  }
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
 
-  /* ─── TESTIMONIAL ─── */
-  #testimonial {
-    background: var(--brown-pale);
-    padding: 100px 60px;
-    text-align: center;
-  }
-  .testimonial-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--brown-deep);
-    max-width: 760px;
-    margin: 0 auto 32px;
-    line-height: 1.5;
-  }
-  .testimonial-quote::before { content: '\201C'; }
-  .testimonial-quote::after { content: '\201D'; }
-  .testimonial-author {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--brown-warm);
-  }
-  .testimonial-role {
-    font-size: 0.78rem;
-    color: var(--text-light);
-    margin-top: 4px;
-  }
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--white);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-  /* ─── CONTACT ─── */
-  #contact {
-    background: var(--cream);
-    padding: 120px 60px;
-  }
-  .contact-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-  .contact-left {}
-  .contact-left .section-title { text-align: left; }
-  .contact-info {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .contact-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--brown-pale);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-  .contact-item-text {}
-  .contact-item-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--brown-warm);
-    margin-bottom: 2px;
-  }
-  .contact-item-val {
-    font-size: 0.9rem;
-    color: var(--text-mid);
-  }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--brown-dark);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
 
-  .contact-form {
-    background: var(--white);
-    padding: 52px 48px;
-    border-radius: 4px;
-    box-shadow: 0 8px 40px rgba(44,26,14,0.08);
-  }
-  .form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--brown-deep);
-    margin-bottom: 32px;
-  }
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .form-group {
-    margin-bottom: 20px;
-  }
-  .form-group label {
-    display: block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brown-warm);
-    margin-bottom: 8px;
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid var(--brown-pale);
-    border-radius: 2px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: var(--text-dark);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--brown-light);
-    box-shadow: 0 0 0 3px rgba(196,154,108,0.15);
-  }
-  .form-group textarea { resize: vertical; min-height: 110px; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-submit {
-    width: 100%;
-    background: var(--brown-mid);
-    color: var(--white);
-    padding: 16px;
-    border: none;
-    border-radius: 2px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.25s, transform 0.2s;
-    margin-top: 8px;
-  }
-  .form-submit:hover {
-    background: var(--brown-deep);
-    transform: translateY(-2px);
-  }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
 
-  /* ─── NEWSLETTER STRIP ─── */
-  #newsletter {
-    background: var(--brown-mid);
-    padding: 72px 60px;
-  }
-  .newsletter-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .newsletter-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-  .newsletter-sub {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 36px;
-    font-weight: 300;
-  }
-  .newsletter-form {
-    display: flex;
-    gap: 0;
-    max-width: 500px;
-    margin: 0 auto;
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-  .newsletter-form input {
-    flex: 1;
-    padding: 16px 20px;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    background: rgba(255,255,255,0.95);
-    color: var(--text-dark);
-    outline: none;
-  }
-  .newsletter-form button {
-    background: var(--brown-deep);
-    color: var(--brown-light);
-    border: none;
-    padding: 16px 28px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-  .newsletter-form button:hover { background: #1a0e06; }
+        .feature-card {
+            background: linear-gradient(135deg, var(--cream) 0%, #f9f5f0 100%);
+            padding: 2.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(141, 110, 99, 0.1);
+        }
 
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--brown-deep);
-    padding: 60px 60px 36px;
-    color: rgba(255,255,255,0.45);
-  }
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 48px;
-  }
-  .footer-brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 14px;
-  }
-  .footer-brand-name span { color: var(--brown-light); }
-  .footer-brand-desc {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.4);
-    max-width: 260px;
-  }
-  .footer-col-title {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--brown-light);
-    margin-bottom: 20px;
-  }
-  .footer-links { list-style: none; }
-  .footer-links li { margin-bottom: 10px; }
-  .footer-links a {
-    color: rgba(255,255,255,0.45);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--brown-light); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    font-size: 0.78rem;
-  }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(62, 39, 35, 0.15);
+            border-color: var(--accent);
+        }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 1024px) {
-    #hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
-    .hero-left { padding: 140px 60px 80px; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .product-row { grid-template-columns: 1fr; min-height: auto; }
-    .product-row.reverse { direction: ltr; }
-    .product-content { padding: 56px 48px; }
-    .about-inner { grid-template-columns: 1fr; gap: 48px; }
-    .about-right { grid-template-columns: 1fr 1fr; }
-    .about-img-wrap:first-child { height: 200px; }
-    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-    .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
-  }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
 
-  @media (max-width: 768px) {
-    #navbar { padding: 0 24px; }
-    .nav-links { display: none; flex-direction: column; position: fixed; top: 72px; left: 0; right: 0; background: var(--brown-deep); padding: 24px; gap: 20px; }
-    .nav-links.open { display: flex; }
-    .hamburger { display: flex; }
-    .hero-left { padding: 120px 24px 60px; }
-    .hero-stats { gap: 28px; flex-wrap: wrap; }
-    #features { padding: 80px 24px; }
-    .features-grid { grid-template-columns: 1fr; gap: 24px; }
-    #products { padding: 80px 0; }
-    #products .section-header { padding: 0 24px; }
-    .product-content { padding: 48px 24px; }
-    .product-specs { flex-wrap: wrap; gap: 20px; }
-    #about { padding: 80px 24px; }
-    .about-right { grid-template-columns: 1fr; }
-    .about-img-wrap:first-child { grid-column: 1; }
-    #testimonial { padding: 72px 24px; }
-    #contact { padding: 80px 24px; }
-    .contact-form { padding: 36px 24px; }
-    .form-row { grid-template-columns: 1fr; }
-    #newsletter { padding: 60px 24px; }
-    .newsletter-form { flex-direction: column; }
-    .newsletter-form input, .newsletter-form button { width: 100%; }
-    footer { padding: 48px 24px 28px; }
-    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
-    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--brown-dark);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
 
-  /* ─── SCROLL ANIMATIONS ─── */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .fade-up:nth-child(2) { transition-delay: 0.1s; }
-  .fade-up:nth-child(3) { transition-delay: 0.2s; }
-</style>
+        .feature-card p {
+            color: var(--brown-mid);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #faf8f5 0%, var(--cream) 100%);
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(62, 39, 35, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(62, 39, 35, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--brown-dark);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: var(--brown-mid);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .product-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--wood-tone);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-button:hover {
+            background: var(--brown-dark);
+            transform: translateX(4px);
+        }
+
+        /* Craftsmanship Section */
+        .craftsmanship {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 100%);
+            color: var(--cream);
+        }
+
+        .craftsmanship-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .craftsmanship h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .craftsmanship p {
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            color: rgba(245, 237, 227, 0.9);
+        }
+
+        .craftsmanship-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--brown-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(141, 110, 99, 0.2);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--cream);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(201, 153, 111, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.2);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(62, 39, 35, 0.3);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brown-dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .craftsmanship-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .craftsmanship-image {
+                height: 300px;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+                margin-top: 70px;
+            }
+
+            .features, .products, .contact {
+                padding: 3rem 1rem;
+            }
+
+            .products-grid, .features-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .cta-button {
+                padding: 0.85rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card, .product-card {
+                border-radius: 6px;
+            }
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card, .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">GRAINWORK</div>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#craftsmanship">Craftsmanship</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">Grain<span>work</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#features">Craft</a></li>
-    <li><a href="#products">Collection</a></li>
-    <li><a href="#about">Story</a></li>
-    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where Craftsmanship Meets Workspace</h1>
+            <p>Handcrafted desks built for those who value quality, sustainability, and timeless design</p>
+            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView();">Explore Our Collection</button>
+        </div>
+    </section>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-wood-texture"></div>
-  <div class="hero-left">
-    <div class="hero-eyebrow">Est. 2008 — Handcrafted in Vermont</div>
-    <h1 class="hero-headline">
-      Where <em>wood</em><br>meets your<br>best work.
-    </h1>
-    <p class="hero-sub">
-      Every Grainwork desk is cut, shaped, and finished by hand using sustainably sourced hardwoods. Built to outlive trends — and desks that don't deserve your workspace.
-    </p>
-    <div class="hero-actions">
-      <a href="#products" class="btn-primary">Explore Collection</a>
-      <a href="#about" class="btn-ghost">Our craft</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">4,200+</div>
-        <div class="stat-label">Desks crafted</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">15yr</div>
-        <div class="stat-label">Warranty</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Solid hardwood</div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <img src="https://picsum.photos/seed/wooddesk-hero/900/1100" alt="Handcrafted wooden desk in a bright studio">
-    <div class="hero-overlap-card">
-      <div class="overlap-badge">New 2024</div>
-      <div class="overlap-title">The Atelier Desk</div>
-      <div class="overlap-sub">White Oak · 60" × 30"</div>
-    </div>
-  </div>
-</section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose Grainwork</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌲</div>
+                <h3>Premium Materials</h3>
+                <p>Sourced from sustainably managed forests, every piece of wood is selected for its grain and character.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔨</div>
+                <h3>Master Craftsmanship</h3>
+                <p>Each desk is handcrafted by skilled artisans with decades of woodworking experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Lifetime Support</h3>
+                <p>Comprehensive warranty and dedicated support ensure your desk lasts for generations.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- FEATURES -->
-<section id="features">
-  <div class="section-header fade-up">
-    <div class="section-eyebrow">Why Grainwork</div>
-    <h2 class="section-title">Crafted for people who care about their space</h2>
-    <p class="section-desc">We obsess over every tenon joint and hand-rubbed oil finish so you can simply sit down and do your best thinking.</p>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🪵</div>
-      <div class="feature-name">Solid Hardwood Only</div>
-      <p class="feature-text">No MDF. No particle board. Every surface you touch is genuine American White Oak, Walnut, or Cherry — sourced from FSC-certified forests.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🔨</div>
-      <div class="feature-name">Hand-Jointed Construction</div>
-      <p class="feature-text">Traditional mortise-and-tenon joints, not screws and cam locks. Our desks don't wobble after a year — they get better with age.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🌿</div>
-      <div class="feature-name">Sustainably Sourced</div>
-      <p class="feature-text">Every board is traced to a certified forest. We plant two trees for every one we use — because the grain of tomorrow matters.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">✏️</div>
-      <div class="feature-name">Made to Measure</div>
-      <p class="feature-text">Send us your room dimensions and we'll size it perfectly. Corner configurations, cable management, and custom finishes available on request.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">🛡️</div>
-      <div class="feature-name">15-Year Warranty</div>
-      <p class="feature-text">If a joint opens, a drawer sticks, or a finish fades in the first 15 years, we'll fix it. No forms, no fuss — a handshake promise.</p>
-    </div>
-    <div class="feature-card fade-up">
-      <div class="feature-icon">📦</div>
-      <div class="feature-name">White-Glove Delivery</div>
-      <p class="feature-text">Your desk arrives fully assembled and placed exactly where you want it. Our installers protect your floors, test everything, and leave no dust behind.</p>
-    </div>
-  </div>
-</section>
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="products-container">
+            <h2 class="section-title">Featured Collections</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/wooden-desk-modern/400/280" alt="Executive Desk" class="product-image">
+                    <div class="product-info">
+                        <h3>Executive Studio</h3>
+                        <div class="product-price">$3,500</div>
+                        <p class="product-description">A commanding workspace featuring walnut veneer with a hidden cable management system and built-in storage drawers.</p>
+                        <button class="product-button">View Details</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/minimal-desk-wood/400/280" alt="Minimal Desk" class="product-image">
+                    <div class="product-info">
+                        <h3>Minimal Oak</h3>
+                        <div class="product-price">$2,200</div>
+                        <p class="product-description">Clean lines and honest materials. A beautiful oak desktop with steel hairpin legs designed for contemporary spaces.</p>
+                        <button class="product-button">View Details</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://picsum.photos/seed/rustic-workspace-desk/400/280" alt="Rustic Desk" class="product-image">
+                    <div class="product-info">
+                        <h3>Heritage Rustic</h3>
+                        <div class="product-price">$2,800</div>
+                        <p class="product-description">Reclaimed wood character with industrial iron accents. A statement piece that tells the story of its origins.</p>
+                        <button class="product-button">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="section-header fade-up">
-    <div class="section-eyebrow">The Collection</div>
-    <h2 class="section-title">Desks built to become heirlooms</h2>
-    <p class="section-desc">Three distinct lines — each with its own character, the same uncompromising construction.</p>
-  </div>
+    <!-- Craftsmanship Section -->
+    <section class="craftsmanship" id="craftsmanship">
+        <div class="craftsmanship-container">
+            <div>
+                <h2>Built to Last Generations</h2>
+                <p>Every Grainwork desk begins with careful material selection. We source premium hardwoods from certified sustainable forests, examining each plank for grain, color, and structural integrity.</p>
+                <p>Our master craftspeople employ traditional joinery techniques combined with modern precision. Hand-finishing brings out the natural beauty of the wood, creating a unique desk that improves with age and use.</p>
+                <p>We stand behind our work. Every desk comes with a lifetime structural warranty and access to our restoration services, ensuring your investment remains beautiful and functional for decades.</p>
+            </div>
+            <img src="https://picsum.photos/seed/woodworking-craft-artisan/400/400" alt="Craftsmanship" class="craftsmanship-image">
+        </div>
+    </section>
 
-  <!-- Product 1 -->
-  <div class="product-row fade-up">
-    <div class="product-image-wrap">
-      <img src="https://picsum.photos/seed/walnut-desk-studio/800/600" alt="The Studio Desk in Walnut">
-      <div class="product-image-overlay"></div>
-      <div class="product-price-badge">From $1,890</div>
-    </div>
-    <div class="product-content">
-      <div class="product-category">Signature Line</div>
-      <h3 class="product-name">The Studio Desk</h3>
-      <p class="product-desc">Our flagship. A single slab of figured Walnut with a live edge on one side, sanded to 400 grit and finished with three coats of hand-rubbed Danish oil. Minimal, strong, timeless.</p>
-      <div class="product-specs">
-        <div class="spec-item">
-          <div class="spec-val">Black Walnut</div>
-          <div class="spec-key">Wood</div>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Get in Touch</h2>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
         </div>
-        <div class="spec-item">
-          <div class="spec-val">60–84"</div>
-          <div class="spec-key">Width</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-val">6–8 weeks</div>
-          <div class="spec-key">Lead time</div>
-        </div>
-      </div>
-      <a href="#contact" class="btn-outline">Request Quote</a>
-    </div>
-  </div>
+    </section>
 
-  <!-- Product 2 -->
-  <div class="product-row reverse fade-up">
-    <div class="product-image-wrap">
-      <img src="https://picsum.photos/seed/white-oak-executive/800/600" alt="The Atelier Desk in White Oak">
-      <div class="product-image-overlay"></div>
-      <div class="product-price-badge">From $2,340</div>
-    </div>
-    <div class="product-content">
-      <div class="product-category">Atelier Line</div>
-      <h3 class="product-name">The Atelier Desk</h3>
-      <p class="product-desc">An architect's desk, reimagined. White Oak with a subtle cathedral grain, paired with a hand-forged blackened-steel base. The cable tray is seamlessly integrated into the apron.</p>
-      <div class="product-specs">
-        <div class="spec-item">
-          <div class="spec-val">White Oak</div>
-          <div class="spec-key">Wood</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-val">54–72"</div>
-          <div class="spec-key">Width</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-val">8–10 weeks</div>
-          <div class="spec-key">Lead time</div>
-        </div>
-      </div>
-      <a href="#contact" class="btn-outline">Request Quote</a>
-    </div>
-  </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Grainwork. All rights reserved. Handcrafted with intention.</p>
+    </footer>
 
-  <!-- Product 3 -->
-  <div class="product-row fade-up">
-    <div class="product-image-wrap">
-      <img src="https://picsum.photos/seed/cherry-wood-compact/800/600" alt="The Compact Desk in Cherry">
-      <div class="product-image-overlay"></div>
-      <div class="product-price-badge">From $1,290</div>
-    </div>
-    <div class="product-content">
-      <div class="product-category">Everyday Line</div>
-      <h3 class="product-name">The Compact Desk</h3>
-      <p class="product-desc">For apartments and focused spaces. American Cherry that deepens to a warm amber with sun exposure. Includes one dovetail drawer and an open shelf — everything you need, nothing you don't.</p>
-      <div class="product-specs">
-        <div class="spec-item">
-          <div class="spec-val">Cherry</div>
-          <div class="spec-key">Wood</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-val">42–54"</div>
-          <div class="spec-key">Width</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-val">4–5 weeks</div>
-          <div class="spec-key">Lead time</div>
-        </div>
-      </div>
-      <a href="#contact" class="btn-outline">Request Quote</a>
-    </div>
-  </div>
-</section>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Thank you, ${name}! We've received your message and will get back to you at ${email} shortly.`);
+            
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
 
-<!-- ABOUT / CRAFTSMANSHIP -->
-<section id="about">
-  <div class="about-inner">
-    <div class="about-left fade-up">
-      <div class="section-eyebrow">Our Story</div>
-      <h2 class="section-title">Built in a Vermont barn since 2008</h2>
-      <p class="about-text">Grainwork started when our founder, <strong>Thomas Aldric</strong>, couldn't find a desk worth keeping. So he built one — in his grandfather's timber-frame barn with hand tools and a secondhand bandsaw.</p>
-      <p class="about-text">Fifteen years later, we still work in that same barn. We've added three more craftspeople, a few more saws, and <strong>over 4,200 desks</strong> shipped across North America. The ethos hasn't changed: every desk should outlast its owner.</p>
-      <p class="about-text">We choose our wood the way a tailor chooses cloth — for character, for grain, for the way it will look 30 years from now.</p>
-      <div class="material-pills">
-        <span class="pill">Black Walnut</span>
-        <span class="pill">White Oak</span>
-        <span class="pill">Cherry</span>
-        <span class="pill">Hard Maple</span>
-        <span class="pill">Ash</span>
-        <span class="pill">Reclaimed Pine</span>
-      </div>
-    </div>
-    <div class="about-right fade-up">
-      <div class="about-img-wrap">
-        <img src="https://picsum.photos/seed/woodshop-workshop/700/400" alt="The Grainwork workshop">
-      </div>
-      <div class="about-img-wrap">
-        <img src="https://picsum.photos/seed/wood-grain-detail/400/300" alt="Close-up of wood grain">
-      </div>
-      <div class="about-img-wrap">
-        <img src="https://picsum.photos/seed/carpentry-hand-tools/400/300" alt="Hand tools on workbench">
-      </div>
-    </div>
-  </div>
-</section>
+        // Smooth scroll enhancement for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
-<!-- TESTIMONIAL -->
-<section id="testimonial">
-  <div class="fade-up">
-    <blockquote class="testimonial
-# filename: index.html
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grainwork — Handcrafted Desks</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+        // Add scroll animation for cards on page load
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#" class="logo">Grainwork</a>
-    <ul class="nav-links">
-      <li><a href="#features">Craft</a></li>
-      <li><a href="#products">Collection</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="nav-cta">Shop Now</button>
-    <button class="hamburger" id="hamburger">&#9776;</button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#features">Craft</a>
-    <a href="#products">Collection</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#" class="mobile-cta">Shop Now</a>
-  </div>
-</nav>
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-overlay"></div>
-  <img src="https://picsum.photos/seed/wooddesk/1600/900" alt="Handcrafted desk" class="hero-bg">
-  <div class="hero-content">
-    <span class="hero-eyebrow">Handcrafted in the Pacific Northwest</span>
-    <h1 class="hero-headline">Where Every<br>Grain Tells<br>a Story</h1>
-    <p class="hero-sub">Premium solid-wood desks built for the way you work — and the way you live.</p>
-    <div class="hero-actions">
-      <a href="#products" class="btn btn-primary">Explore Collection</a>
-      <a href="#about" class="btn btn-ghost">Our Craft</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="container">
-    <p class="section-label">Why Grainwork</p>
-    <h2 class="section-title">Built Different. Built to Last.</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 48 48" fill="none"><path d="M6 38V16l18-8 18 8v22H6z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 38V26h16v12" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Solid Hardwood</h3>
-        <p>Every top is milled from sustainably sourced walnut, white oak, or maple — no veneers, no shortcuts.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2.5"/><path d="M24 14v10l6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-        </div>
-        <h3>Built for Decades</h3>
-        <p>Mortise-and-tenon joinery, hand-finished edges, and hardware rated for 50+ years of daily use.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 48 48" fill="none"><path d="M10 36l8-8 6 6 8-10 6 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="10" width="36" height="28" rx="2" stroke="currentColor" stroke-width="2.5"/></svg>
-        </div>
-        <h3>Fully Customizable</h3>
-        <p>Choose your species, finish, leg style, and dimensions. Every desk ships in 4–6 weeks.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 48 48" fill="none"><path d="M24 6l4 12h12l-10 7 4 12-10-7-10 7 4-12L8 18h12z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Lifetime Warranty</h3>
-        <p>We stand behind every joint. If anything fails due to craftsmanship, we fix or replace it — always.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<section class="products" id="products">
-  <div class="container">
-    <p class="section-label">Our Collection</p>
-    <h2 class="section-title">Find Your Workspace</h2>
-    <div class="products-grid">
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="https://picsum.photos/seed/walnutdesk/600/420" alt="The Walnut Studio">
-          <span class="product-badge">Bestseller</span>
-        </div>
-        <div class="product-info">
-          <div class="product-meta">
-            <span class="product-material">Black Walnut</span>
-            <span class="product-price">From $1,890</span>
-          </div>
-          <h3>The Studio</h3>
-          <p>A broad 72" top with integrated cable management and a hand-rubbed oil finish that deepens with age.</p>
-          <a href="#contact" class="btn btn-outline">Configure Yours</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="https://picsum.photos/seed/oakdesk/600/420" alt="The Oak Compact">
-        </div>
-        <div class="product-info">
-          <div class="product-meta">
-            <span class="product-material">White Oak</span>
-            <span class="product-price">From $1,290</span>
-          </div>
-          <h3>The Compact</h3>
-          <p>Space-conscious at 48" but never short on character. Perfect for a home office nook or apartment setup.</p>
-          <a href="#contact" class="btn btn-outline">Configure Yours</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="https://picsum.photos/seed/maplecorner/600/420" alt="The Corner Maple">
-          <span class="product-badge product-badge--new">New</span>
-        </div>
-        <div class="product-info">
-          <div class="product-meta">
-            <span class="product-material">Hard Maple</span>
-            <span class="product-price">From $2,390</span>
-          </div>
-          <h3>The Corner</h3>
-          <p>L-shaped command center with a live-edge waterfall detail. Our most immersive work surface yet.</p>
-          <a href="#contact" class="btn btn-outline">Configure Yours</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT / CRAFTSMANSHIP -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-image">
-      <img src="https://picsum.photos/seed/woodworkshop/800/600" alt="Craftsman at work">
-      <div class="about-stat-box">
-        <strong>2,400+</strong>
-        <span>Desks crafted since 2014</span>
-      </div>
-    </div>
-    <div class="about-text">
-      <p class="section-label">Our Story</p>
-      <h2>Slow Craft in a Fast World</h2>
-      <p class="about-lead">We started Grainwork in a 400 sq ft garage with one table saw and the belief that furniture should outlive its owner.</p>
-      <p>Every piece passes through the hands of a single craftsperson from rough lumber to final finish. We don't run assembly lines. We don't rush. We mill, plane, fit, and finish the way it's been done for generations — because that's the only way to get it right.</p>
-      <ul class="about-list">
-        <li>
-          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          FSC-certified lumber from Oregon & Washington forests
-        </li>
-        <li>
-          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Water-based, VOC-free finishes on every surface
-        </li>
-        <li>
-          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Carbon-offset shipping on all domestic orders
-        </li>
-        <li>
-          <svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          White-glove in-home delivery & setup included
-        </li>
-      </ul>
-      <a href="#contact" class="btn btn-primary">Start Your Order</a>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="container">
-    <p class="section-label">What People Say</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"I've had my Studio desk for three years. It's more beautiful now than when it arrived. Worth every penny."</p>
-        <div class="testimonial-author">
-          <img src="https://picsum.photos/seed/person1/48/48" alt="">
-          <div><strong>Sarah M.</strong><span>Product Designer, Seattle</span></div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"The customization process was seamless. They matched a live-edge cut to my exact dimensions. Unreal quality."</p>
-        <div class="testimonial-author">
-          <img src="https://picsum.photos/seed/person2/48/48" alt="">
-          <div><strong>James T.</strong><span>Architect, Portland</span></div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"My Corner desk transformed my home office. Clients comment on it every video call. It's a conversation piece."</p>
-        <div class="testimonial-author">
-          <img src="https://picsum.photos/seed/person3/48/48" alt="">
-          <div><strong>Elena R.</strong><span>Founder, San Francisco</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT / NEWSLETTER -->
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="contact-text">
-      <p class="section-label">Get in Touch</p>
-      <h2>Let's Build Something Beautiful</h2>
-      <p>Ready to configure your desk, or just have questions? Fill out the form and our team will respond within one business day.</p>
-      <div class="contact-details">
-        <div><span>📍</span> Portland, OR 97201</div>
-        <div><span>✉️</span> hello@grainwork.co</div>
-        <div><span>📞</span> (503) 421-7800</div>
-      </div>
-      <div class="newsletter-block">
-        <p><strong>Join our list</strong> — new collections, wood stories, and studio updates.</p>
-        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-          <input type="email" placeholder="your@email.com" required>
-          <button type="submit">Subscribe</button>
-        </form>
-      </div>
-    </div>
-    <form class="contact-form" onsubmit="handleContact(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" placeholder="Jane" required>
-        </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" placeholder="Doe" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="jane@example.com" required>
-      </div>
-      <div class="form-group">
-        <label>Interested In</label>
-        <select>
-          <option value="">Select a collection</option>
-          <option>The Studio — Walnut</option>
-          <option>The Compact — White Oak</option>
-          <option>The Corner — Hard Maple</option>
-          <option>Custom Commission</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea rows="4" placeholder="Tell us about your space, dimensions, and vision..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-      <p class="form-note">We typically respond within 24 hours.</p>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="#" class="logo">Grainwork</a>
-      <p>Handcrafted desks built to last a lifetime, made in Portland, Oregon.</p>
-    </div>
-    <div class="footer-links">
-      <div>
-        <strong>Shop</strong>
-        <a href="#">The Studio</a>
-        <a href="#">The Compact</a>
-        <a href="#">The Corner</a>
-        <a href="#">Custom Orders</a>
-      </div>
-      <div>
-        <strong>Company</strong>
-        <a href="#">About Us</a>
-        <a href="#">Craftsmanship</a>
-        <a href="#">Sustainability</a>
-        <a href="#">Press</a>
-      </div>
-      <div>
-        <strong>Support</strong>
-        <a href="#">FAQ</a>
-        <a href="#">Shipping & Delivery</a>
-        <a href="#">Warranty</a>
-        <a href="#">Contact</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2024 Grainwork. All rights reserved.</span>
-    <span>Privacy Policy · Terms of Service</span>
-  </div>
-</footer>
-
-<div class="toast" id="toast"></div>
-
-<script src="app.js"></script>
+        document.querySelectorAll('.feature-card, .product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
