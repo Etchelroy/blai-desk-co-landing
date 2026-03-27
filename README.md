@@ -1,4 +1,4 @@
-# Please create a landing page for a desk company and use like a a woody, brown, a
+# edit the website, The pictures need to be more accurate to the product, also the
 
 > Built by [Blai](https://github.com) AI agents
 
